@@ -4,47 +4,64 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="./style.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,700;1,100;1,200;1,700&display=swap"
+            rel="stylesheet"
+        />
         <title>Dev.Finance$</title>
     </head>
     <body>
         <header>
-            <h1>dev.finance$</h1>
+            <h1 id="logo">dev.finance$</h1>
         </header>
-        <main>
-            <h2>Balanço</h2>
-            <h3>Entrada</h3>
-            <p>R$ 5.000,00</p>
-            <h3>Saídas</h3>
-            <p>R$ 2.000,00</p>
-            <h3>Total</h3>
-            <p>R$ 3.000,00</p>
-            <h2>Transações</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Descrição</th>
-                        <th>Valor</th>
-                        <th>Data</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Água</td>
-                        <td>- R$ 240,00</td>
-                        <td>01/01/2021</td>
-                    </tr>
-                    <tr>
-                        <td>Luz</td>
-                        <td>- R$ 320,00</td>
-                        <td>02/01/2021</td>
-                    </tr>
-                    <tr>
-                        <td>Salário</td>
-                        <td>R$ 1.480,00</td>
-                        <td>10/01/2021</td>
-                    </tr>
-                </tbody>
-            </table>
+        <main class="container">
+            <section id="balance">
+                <h2>Balanço</h2>
+                <div class="card">
+                    <h3>Entrada</h3>
+                    <p>R$ 5.000,00</p>
+                </div>
+                <div class="card">
+                    <h3>Saídas</h3>
+                    <p>R$ 2.000,00</p>
+                </div>
+                <div class="card total">
+                    <h3>Total</h3>
+                    <p>R$ 3.000,00</p>
+                </div>
+            </section>
+            <section id="transactions">
+                <h2>Transações</h2>
+                <table id="data-table">
+                    <thead>
+                        <tr>
+                            <th>Descrição</th>
+                            <th>Valor</th>
+                            <th>Data</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="description">Água</td>
+                            <td class="expense">- R$ 240,00</td>
+                            <td class="date">01/01/2021</td>
+                        </tr>
+                        <tr>
+                            <td class="description">Luz</td>
+                            <td class="expense">- R$ 320,00</td>
+                            <td class="date">02/01/2021</td>
+                        </tr>
+                        <tr>
+                            <td class="description">Salário</td>
+                            <td class="income">R$ 1.480,00</td>
+                            <td class="date">10/01/2021</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
         </main>
         <footer>
             <p>dev.finance$</p>
