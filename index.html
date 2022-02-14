@@ -28,7 +28,7 @@
                             alt="Imagem de Entradas"
                         />
                     </h3>
-                    <p>R$ 5.000,00</p>
+                    <p id="incomeDisplay"></p>
                 </div>
                 <div class="card">
                     <h3>
@@ -38,20 +38,22 @@
                             alt="Imagem de Saídas"
                         />
                     </h3>
-                    <p>R$ 2.000,00</p>
+                    <p id="expenseDisplay"></p>
                 </div>
                 <div class="card total">
                     <h3>
                         <span>Total</span>
                         <img src="./assets/total.svg" alt="Imagem de Total" />
                     </h3>
-                    <p>R$ 3.000,00</p>
+                    <p id="totalDisplay"></p>
                 </div>
             </section>
             <section id="transactions">
                 <h2 class="sr-only">Transações</h2>
 
-                <a href="#" class="button new open-modal">+ Nova Transação</a>
+                <a href="#" class="button new" key-modal-action
+                    >+ Nova Transação</a
+                >
                 <table id="data-table">
                     <thead>
                         <tr>
@@ -61,41 +63,7 @@
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td class="description">Água</td>
-                            <td class="expense">- R$ 240,00</td>
-                            <td class="date">01/01/2021</td>
-                            <td>
-                                <img
-                                    src="./assets/minus.svg"
-                                    alt="Remover Transação"
-                                />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="description">Luz</td>
-                            <td class="expense">- R$ 320,00</td>
-                            <td class="date">02/01/2021</td>
-                            <td>
-                                <img
-                                    src="./assets/minus.svg"
-                                    alt="Remover Transação"
-                                />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="description">Salário</td>
-                            <td class="income">R$ 1.480,00</td>
-                            <td class="date">10/01/2021</td>
-                            <td>
-                                <img
-                                    src="./assets/minus.svg"
-                                    alt="Remover Transação"
-                                />
-                            </td>
-                        </tr>
-                    </tbody>
+                    <tbody></tbody>
                 </table>
             </section>
         </main>
@@ -104,7 +72,7 @@
             <div class="modal">
                 <div id="form">
                     <h2>Nova Transação</h2>
-                    <form action="">
+                    <form action="" onsubmit="form.submit(event)">
                         <div class="input-group">
                             <label class="sr-only" for="description"
                                 >Descrição</label
@@ -117,12 +85,12 @@
                             />
                         </div>
                         <div class="input-group">
-                            <label class="sr-only" for="amounth">Valor</label>
+                            <label class="sr-only" for="amount">Valor</label>
                             <input
                                 type="number"
                                 step="0.01"
-                                name="amounth"
-                                id="amounth"
+                                name="amount"
+                                id="amount"
                                 placeholder="0,00"
                             />
                             <small class="help">
@@ -140,10 +108,10 @@
                             />
                         </div>
                         <div class="input-group actions">
-                            <a href="#" class="button cancel close-modal"
-                                >Cancelar</a
-                            >
-                            <button>Salvar</button>
+                            <a href="#" class="button cancel" key-modal-action>
+                                Cancelar
+                            </a>
+                            <button type="submit">Salvar</button>
                         </div>
                     </form>
                 </div>
@@ -151,8 +119,8 @@
         </div>
 
         <footer>
-            <p>dev.finance$</p>
+            <p>2022 - dev.finance$</p>
         </footer>
-        <script src="./script.js"></script>
+        <script src="./script.js" type="module"></script>
     </body>
 </html>
