@@ -51,7 +51,7 @@
             <section id="transactions">
                 <h2 class="sr-only">Transações</h2>
 
-                <a href="#" class="button new" key-modal-action
+                <a href="#" class="button new" onclick="modal.action()"
                     >+ Nova Transação</a
                 >
                 <table id="data-table">
@@ -108,7 +108,11 @@
                             />
                         </div>
                         <div class="input-group actions">
-                            <a href="#" class="button cancel" key-modal-action>
+                            <a
+                                href="#"
+                                class="button cancel"
+                                onclick="modal.action()"
+                            >
                                 Cancelar
                             </a>
                             <button type="submit">Salvar</button>
@@ -121,6 +125,6 @@
         <footer>
             <p>2022 - dev.finance$</p>
         </footer>
-        <script src="./script.js" type="module"></script>
+        <script src="./script.js"></script>
     </body>
 </html>

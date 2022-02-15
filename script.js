@@ -1,36 +1,25 @@
-import fakeJS from "./app.js";
-
-/** TRANSACTION LIST ======================= */
-const transactionList = [
-    {
-        //lista de transações
-        description: "Luz",
-        amount: -50000,
-        date: "10 / 02 / 2022",
-    },
-    {
-        //lista de transações
-        description: "Água",
-        amount: -24000,
-        date: "15 / 02 / 2022",
-    },
-    {
-        //lista de transações
-        description: "Salário",
-        amount: 750000,
-        date: "30 / 02 / 2022",
-    },
-];
-
-/** OPEN / CLOSE MODAL FUNCTIONS ============ */
 const modal = {
     action() {
         document.querySelector(".modal-overlay").classList.toggle("active");
     },
 };
 
+const storage = {
+    get() {
+        return (
+            JSON.parse(localStorage.getItem("dev.finances:transactions")) || []
+        );
+    },
+    set(transactions) {
+        localStorage.setItem(
+            "dev.finances:transactions",
+            JSON.stringify(transactions)
+        );
+    },
+};
+
 const balance = {
-    all: transactionList,
+    all: storage.get(),
     add(transaction) {
         balance.all.push(transaction);
         App.reload();
@@ -66,11 +55,12 @@ const dom = {
     container: document.querySelector("#data-table tbody"),
     addTransaction(transaction, index) {
         const tr = document.createElement("tr");
-        tr.innerHTML = this.innerHTMLTransaction(transaction);
+        tr.innerHTML = dom.innerHTMLTransaction(transaction, index);
+        tr.dataset.index = index;
 
-        this.container.appendChild(tr);
+        dom.container.appendChild(tr);
     },
-    innerHTMLTransaction(transaction) {
+    innerHTMLTransaction(transaction, index) {
         const cssClass = transaction.amount > 0 ? "income" : "expense";
         const amount = utils.formatCurrency(transaction.amount);
 
@@ -82,6 +72,7 @@ const dom = {
                 <img
                     src="./assets/minus.svg"
                     alt="Remover Transação"
+                    onclick="balance.remove(${index})"
                 />
             </td>
         `;
@@ -124,13 +115,31 @@ const form = {
             throw new Error("Por favor, preencha todos os campos");
         }
     },
-    formatData() {},
+    formatValues() {
+        let { description, amount, date } = form.getValues();
+        amount = utils.formatAmount(amount);
+        date = utils.formatDate(date);
+
+        return {
+            description,
+            amount,
+            date,
+        };
+    },
+    clearFields() {
+        form.description.value = "";
+        form.amount.value = "";
+        form.date.value = "";
+    },
     submit(event) {
         event.preventDefault();
 
         try {
             form.validateFields();
-            form.formatData();
+            const transaction = form.formatValues();
+            balance.add(transaction);
+            form.clearFields();
+            modal.action();
         } catch (error) {
             alert(error.message);
         }
@@ -138,6 +147,11 @@ const form = {
 };
 
 const utils = {
+    formatAmount(value) {
+        value = Number(value) * 100;
+
+        return value;
+    },
     formatCurrency(value) {
         const signal = Number(value) < 0 ? "-" : "";
         value = String(value).replace(/\D/g, "");
@@ -149,16 +163,17 @@ const utils = {
 
         return `${signal}${value}`;
     },
+    formatDate(value) {
+        const splitedDate = value.split("-");
+        return `${splitedDate[2]}/${splitedDate[1]}/${splitedDate[0]}`;
+    },
 };
 
 const App = {
     init() {
-        document
-            .querySelectorAll("[key-modal-action]")
-            .forEach((item) => item.addEventListener("click", modal.action));
-
-        balance.all.forEach((item) => dom.addTransaction(item));
+        balance.all.forEach((item, index) => dom.addTransaction(item, index));
         dom.updateBalance();
+        storage.set(balance.all);
     },
     reload() {
         dom.clearTransactions();
@@ -167,4 +182,3 @@ const App = {
 };
 
 App.init();
-fakeJS();
